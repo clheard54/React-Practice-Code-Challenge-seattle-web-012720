@@ -41,9 +41,16 @@ class App extends Component {
 
   makeMoreSushi = () => {
     let id = this.state.current[3].id
-    this.setState({
-      current: this.state.sushis.slice(id, id+4)
-    })
+    const length = this.state.sushis.length;
+    if (id+4 > length) {
+      this.setState({
+        current: [...this.state.sushis.slice(id, length), ...this.state.sushis.slice(0, 4 - (length - id))]
+      })
+    } else {
+      this.setState({
+        current: this.state.sushis.slice(id, id+4)
+      })
+    }
   }
 
   render() {

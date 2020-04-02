@@ -7,9 +7,9 @@ const SushiContainer = (props) => {
     <Fragment>
       <div className="belt">
           {props.current.map(sushi => {
-          return <Sushi sushi={sushi} onOrderSushi={props.onOrderSushi} />
+          return <Sushi key={sushi.id} sushi={sushi} eaten={props.eaten} onOrderSushi={props.onOrderSushi} />
           })}
-        <MoreButton />
+        <MoreButton onMakeMoreSushi={props.onMakeMoreSushi}/>
       </div>
     </Fragment>
   )

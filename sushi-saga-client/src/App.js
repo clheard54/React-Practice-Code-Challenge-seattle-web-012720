@@ -12,6 +12,7 @@ class App extends Component {
       sushis: [],
       current: [],
       eaten: [],
+      money: 100
     }
   }
 
@@ -28,14 +29,28 @@ class App extends Component {
   }
 
   orderSushi = (sushi) => {
+    if (!this.state.eaten.includes(sushi) && this.state.money-sushi.price>=0) {
+      this.setState(prevState => {
+        return {
+          eaten: [...prevState.eaten, sushi],
+          money: prevState.money - sushi.price
+        }
+      })
+    }
+  }
 
+  makeMoreSushi = () => {
+    let id = this.state.current[3].id
+    this.setState({
+      current: this.state.sushis.slice(id, id+4)
+    })
   }
 
   render() {
     return (
       <div className="app">
-        <SushiContainer current={this.state.current} onOrderSushi={this.orderSushi}/>
-        <Table />
+        <SushiContainer current={this.state.current} eaten={this.state.eaten}onOrderSushi={this.orderSushi} onMakeMoreSushi={this.makeMoreSushi}/>
+        <Table money={this.state.money} eaten={this.state.eaten}/>
       </div>
     );
   }

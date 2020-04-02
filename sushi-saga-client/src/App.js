@@ -40,7 +40,6 @@ class App extends Component {
   }
 
   makeMoreSushi = () => {
-    let length = this.state.sushis.length
     let id = this.state.current[3].id
     const length = this.state.sushis.length;
     if (id+4 > length) {
@@ -53,13 +52,18 @@ class App extends Component {
       })
     }
   }
-}
+
+  addMoney = (newMoney) => {
+    this.setState(prevState => {
+      return {money: prevState.money + parseInt(newMoney)}
+    })
+  }
 
   render() {
     return (
       <div className="app">
         <SushiContainer current={this.state.current} eaten={this.state.eaten}onOrderSushi={this.orderSushi} onMakeMoreSushi={this.makeMoreSushi}/>
-        <Table money={this.state.money} eaten={this.state.eaten}/>
+        <Table money={this.state.money} eaten={this.state.eaten} onAddMoney={this.addMoney}/>
       </div>
     );
   }
